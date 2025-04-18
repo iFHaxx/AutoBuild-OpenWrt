@@ -64,7 +64,7 @@ jobs:
         echo 'src-git nas https://github.com/linkease/nas-packages.git;master' >> feeds.conf.default
         echo 'src-git nas_luci https://github.com/linkease/nas-packages-luci.git;main' >> feeds.conf.default
         echo 'src-git quectel-cm-5g https://github.com/xx-vv/quectel_cm_5G.git;main' >> feeds.conf.default
-        echo 'src-git luci-app-3ginfo-lite https://github.com/4IceG/luci-app-3ginfo-lite.git;main' >> feeds.conf.default
+        # echo 'src-git luci-app-3ginfo-lite https://github.com/4IceG/luci-app-3ginfo-lite.git;main' >> feeds.conf.default
 
     - name: Free up disk space
       env:
