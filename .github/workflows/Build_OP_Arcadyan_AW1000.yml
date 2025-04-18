@@ -62,7 +62,7 @@ jobs:
         cd openwrt
         echo 'src-git modem https://github.com/FUjr/modem_feeds.git;main' >> feeds.conf.default
         echo 'src-git nas https://github.com/linkease/nas-packages.git;master' >> feeds.conf.default
-        echo 'src-git nas_luci https://github.com/linkease/nas-packages-luci.git;main' >> feeds.conf.default
+        # echo 'src-git nas_luci https://github.com/linkease/nas-packages-luci.git;main' >> feeds.conf.default
         # echo 'src-git quectel-cm-5g https://github.com/xx-vv/quectel_cm_5G.git;main' >> feeds.conf.default
         # echo 'src-git luci-app-3ginfo-lite https://github.com/4IceG/luci-app-3ginfo-lite.git;main' >> feeds.conf.default
 
@@ -91,8 +91,6 @@ jobs:
         ./scripts/feeds update -a
         ./scripts/feeds install -a
         ./scripts/feeds install -a -f -p modem
-        ./scripts/feeds install -a -p nas
-        ./scripts/feeds install -a -p nas_luci
         ./scripts/feeds install -a -f -p quectel-cm-5g
         ./scripts/feeds install -a -p luci-app-3ginfo-lite
 
