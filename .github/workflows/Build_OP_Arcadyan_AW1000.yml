@@ -1,8 +1,8 @@
 name: Build_Arcadyan_AW1000
-on: 
+on:
   repository_dispatch:
   workflow_dispatch:
-  
+
 env:
   REPO_URL: https://github.com/iFHax/lede
   CONFIG_FILE: 'Arcadyan_AW1000.config'
@@ -11,7 +11,7 @@ env:
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
   TZ: Asia/Kuala_Lumpur
-  
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -53,7 +53,7 @@ jobs:
         sudo chown ${USER}:${GROUPS} /workdir
         sudo timedatectl set-timezone "${TZ}"
         echo "status=success" >> ${GITHUB_OUTPUT}
-        
+
     - name: Clone source code
       id: codes
       if: ${{ steps.init.outputs.status }} == 'success' && !cancelled()
@@ -72,13 +72,13 @@ jobs:
         sudo mkdir -p -m 777 /mnt/openwrt/dl /mnt/openwrt/staging_dir /mnt/openwrt/build_dir
         ln -sf /mnt/openwrt/dl openwrt/dl
         ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
-        ln -sf /mnt/openwrt/build_dir openwrt/build_dir     
+        ln -sf /mnt/openwrt/build_dir openwrt/build_dir
 
     - name: Add Quectel-CM 5G package
       working-directory: ./openwrt/package
       run: |
         git clone https://github.com/xx-vv/quectel_cm_5G.git quectel-cm-5g
- 
+
     - name: Add 3ginfo lite package
       working-directory: ./openwrt/package
       run: |
@@ -89,7 +89,7 @@ jobs:
       run: |
         echo 'src-git quectel-cm-5g https://github.com/xx-vv/quectel_cm_5G.git' >> feeds.conf.default
         echo 'src-git luci-app-3ginfo-lite https://github.com/4IceG/luci-app-3ginfo-lite.git' >> feeds.conf.default
-        
+
     - name: Update & Install feeds
       working-directory: ./openwrt
       run: |
@@ -101,13 +101,13 @@ jobs:
         ./scripts/feeds install -a -f -p quectel-cm-5g
         ./scripts/feeds install -a -p luci-app-3ginfo-lite
 
-   - name: Configuration Customization - Build_Arcadyan_AW1000
+    - name: Configuration Customization - Build_Arcadyan_AW1000
       run: |
         chmod +x ./customize.sh && ./customize.sh
         [[ -d "files" ]] && mv -f files openwrt/files
         [[ -e "${CONFIG_FILE}" ]] && cp -f ${CONFIG_FILE} openwrt/.config
         cd openwrt && make defconfig
-        
+
     - name: Download package
       id: package
       run: |
