@@ -73,6 +73,22 @@ jobs:
         ln -sf /mnt/openwrt/dl openwrt/dl
         ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
         ln -sf /mnt/openwrt/build_dir openwrt/build_dir     
+
+    - name: Add Quectel-CM 5G package
+      working-directory: ./openwrt/package
+      run: |
+        git clone https://github.com/xx-vv/quectel_cm_5G.git quectel-cm-5g
+ 
+    - name: Add 3ginfo lite package
+      working-directory: ./openwrt/package
+      run: |
+        git clone https://github.com/4IceG/luci-app-3ginfo-lite.git luci-app-3ginfo-lite
+
+    - name: Manually add new packages to feeds.conf.default
+      working-directory: ./openwrt
+      run: |
+        echo 'src-git quectel-cm-5g https://github.com/xx-vv/quectel_cm_5G.git' >> feeds.conf.default
+        echo 'src-git luci-app-3ginfo-lite https://github.com/4IceG/luci-app-3ginfo-lite.git' >> feeds.conf.default
         
     - name: Update & Install feeds
       working-directory: ./openwrt
@@ -80,16 +96,12 @@ jobs:
         ./scripts/feeds update -a
         ./scripts/feeds install -a
         ./scripts/feeds install -a -f -p modem
-        ./scripts/feeds install -d y -p istore luci-app-store
         ./scripts/feeds install -a -p nas
         ./scripts/feeds install -a -p nas_luci
+        ./scripts/feeds install -a -f -p quectel-cm-5g
+        ./scripts/feeds install -a -p luci-app-3ginfo-lite
 
-    - name: Add Quectel-CM 5G package
-      working-directory: ./openwrt/package
-      run: |
-        git clone https://github.com/xx-vv/quectel_cm_5G.git quectel-cm-5g
-        
-    - name: Configuration Customization - Build_Arcadyan_AW1000
+   - name: Configuration Customization - Build_Arcadyan_AW1000
       run: |
         chmod +x ./customize.sh && ./customize.sh
         [[ -d "files" ]] && mv -f files openwrt/files
