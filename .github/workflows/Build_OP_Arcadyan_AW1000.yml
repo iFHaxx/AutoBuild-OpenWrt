@@ -84,6 +84,11 @@ jobs:
         ./scripts/feeds install -a -p nas
         ./scripts/feeds install -a -p nas_luci
 
+    - name: Add Quectel-CM 5G package
+      working-directory: ./openwrt/package
+      run: |
+        git clone https://github.com/xx-vv/quectel_cm_5G.git quectel-cm-5g
+        
     - name: Configuration Customization - Build_Arcadyan_AW1000
       run: |
         chmod +x ./customize.sh && ./customize.sh
