@@ -61,10 +61,6 @@ jobs:
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
         cd openwrt
         echo 'src-git modem https://github.com/FUjr/modem_feeds.git;main' >> feeds.conf.default
-        echo 'src-git nas https://github.com/linkease/nas-packages.git;master' >> feeds.conf.default
-        # echo 'src-git nas_luci https://github.com/linkease/nas-packages-luci.git;main' >> feeds.conf.default
-        # echo 'src-git quectel-cm-5g https://github.com/xx-vv/quectel_cm_5G.git;main' >> feeds.conf.default
-        # echo 'src-git luci-app-3ginfo-lite https://github.com/4IceG/luci-app-3ginfo-lite.git;main' >> feeds.conf.default
 
     - name: Free up disk space
       env:
@@ -78,14 +74,9 @@ jobs:
     - name: Add Custom package
       working-directory: ./openwrt/package
       run: |
-        git clone https://github.com/xx-vv/quectel_cm_5G.git quectel-cm-5g
-        git clone https://github.com/4IceG/luci-app-3ginfo-lite.git luci-app-3ginfo-lite
-        git clone --depth=1 https://github.com/openwrt/packages.git tmp-pkgs
-        cp -r tmp-pkgs/utils/csstidy ./utils/
-        git clone --depth=1 https://github.com/openwrt/luci.git tmp-luci
-        mkdir -p contrib
-        cp -r tmp-luci/contrib/package/luasrcdiet ./contrib/
-        rm -rf tmp-pkgs tmp-luci
+        git clone --depth=1 https://github.com/FUjr/modem_feeds.git modem_feeds
+        cp -r modem_feeds/application/quectel_CM_5G_M quectel-cm-5g-m
+        rm -rf modem_feeds
 
     - name: Update & Install feeds
       working-directory: ./openwrt
