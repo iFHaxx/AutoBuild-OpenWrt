@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
 
 env:
-  REPO_URL: https://github.com/iFHax/lede
+  REPO_URL: https://github.com/immortalwrt/immortalwrt
+  REPO_BRANCH: v24.10.0
   CONFIG_FILE: 'Arcadyan_AW1000.config'
-  REPO_BRANCH: master
   UPLOAD_BIN_DIR: true
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
