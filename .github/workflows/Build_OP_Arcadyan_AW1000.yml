@@ -75,9 +75,14 @@ jobs:
       working-directory: ./openwrt/package
       run: |
         git clone --depth=1 https://github.com/FUjr/modem_feeds.git modem_feeds
-        cp -r modem_feeds/application/quectel_CM_5G_M quectel-cm-5g-m
-        rm -rf modem_feeds
+        git clone --depth=1 https://github.com/intannajwa/quectel_CM_5G_M.git quectel_CM_5G_M
         git clone --depth=1 https://github.com/solomonricky/luci-app-modeminfo.git luci-app-modeminfo
+        git clone --depth=1 https://github.com/4IceG/luci-app-3ginfo-lite.git luci-app-3ginfo-lite
+        git clone --depth=1 https://github.com/4IceG/luci-app-atcommands.git luci-app-atcommands
+        git clone --depth=1 https://github.com/4IceG/luci-app-modemband.git luci-app-modemband
+        git clone --depth=1 https://github.com/4IceG/luci-app-sms-tool-js.git luci-app-sms-tool-js
+        git clone --depth=1 https://github.com/gSpotx2f/luci-app-internet-detector.git luci-app-internet-detector
+        git clone --depth=1 https://github.com/4IceG/luci-app-irqbalance.git luci-app-irqbalance
         
 
     - name: Update & Install feeds
@@ -85,8 +90,12 @@ jobs:
       run: |
         ./scripts/feeds update -a
         ./scripts/feeds install -a
-        ./scripts/feeds install -a -f -p modem
-        ./scripts/feeds install luci-app-ttl 
+        ./scripts/feeds install -a -f -p modem 
+        ./scripts/feeds install luci-app-modemband
+        ./scripts/feeds install luci-app-modeminfo
+        ./scripts/feeds install -a -f -p irqbalance
+        ./scripts/feeds install luci-app-irqbalance
+        ./scripts/feeds install quectel_CM_5G_M
 
 
     - name: Configuration Customization - Build_Arcadyan_AW1000
