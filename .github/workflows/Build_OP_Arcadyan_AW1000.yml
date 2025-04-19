@@ -75,15 +75,17 @@ jobs:
         ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
         ln -sf /mnt/openwrt/build_dir openwrt/build_dir
 
-    - name: Add Quectel-CM 5G package
+    - name: Add Custom package
       working-directory: ./openwrt/package
       run: |
         git clone https://github.com/xx-vv/quectel_cm_5G.git quectel-cm-5g
-
-    - name: Add 3ginfo lite package
-      working-directory: ./openwrt/package
-      run: |
         git clone https://github.com/4IceG/luci-app-3ginfo-lite.git luci-app-3ginfo-lite
+        git clone --depth=1 https://github.com/openwrt/packages.git tmp-pkgs
+        cp -r tmp-pkgs/utils/csstidy ./utils/
+        git clone --depth=1 https://github.com/openwrt/luci.git tmp-luci
+        mkdir -p contrib
+        cp -r tmp-luci/contrib/package/luasrcdiet ./contrib/
+        rm -rf tmp-pkgs tmp-luci
 
     - name: Update & Install feeds
       working-directory: ./openwrt
@@ -93,6 +95,10 @@ jobs:
         ./scripts/feeds install -a -f -p modem
         ./scripts/feeds install -a -f -p quectel-cm-5g
         ./scripts/feeds install -a -p luci-app-3ginfo-lite
+        ./scripts/feeds install luci-base
+        ./scripts/feeds update luci
+        ./scripts/feeds install csstidy luasrcdiet
+
 
     - name: Configuration Customization - Build_Arcadyan_AW1000
       run: |
