@@ -70,12 +70,6 @@ jobs:
         ln -sf /mnt/openwrt/dl openwrt/dl
         ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
         ln -sf /mnt/openwrt/build_dir openwrt/build_dir
-        
-    - name: Add Custom Feed (Modem-extras)
-      working-directory: ./openwrt
-      run: |
-        echo "src-git modem-extras https://github.com/4IceG/Modem-extras/blob/main/myrepo/Packages.gz" >> feeds.conf.default
-
 
     - name: Add Custom package
       working-directory: ./openwrt/package
