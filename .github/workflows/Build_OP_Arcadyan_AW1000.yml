@@ -86,6 +86,7 @@ jobs:
         git clone --depth=1 https://github.com/4IceG/luci-app-sms-tool-js.git luci-app-sms-tool-js
         git clone --depth=1 https://github.com/gSpotx2f/luci-app-internet-detector.git luci-app-internet-detector
         git clone --depth=1 https://github.com/4IceG/luci-app-irqbalance.git luci-app-irqbalance
+        git clone --depth=1 https://github.com/xx-vv/quectel_cm_5G.git quectel_cm_5G
         
 
     - name: Update & Install feeds
@@ -100,6 +101,7 @@ jobs:
         ./scripts/feeds install -a -f -p irqbalance
         ./scripts/feeds install luci-app-irqbalance
         ./scripts/feeds install quectel_CM_5G_M
+        ./scripts/feeds install quectel_cm_5G
         ./scripts/feeds install luci-app-telegrambot
         ./scripts/feeds install luci-app-ttl
 
