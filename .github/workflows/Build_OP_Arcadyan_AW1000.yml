@@ -77,9 +77,8 @@ jobs:
         git clone --depth=1 https://github.com/FUjr/modem_feeds.git modem_feeds
         cp -r modem_feeds/application/quectel_CM_5G_M quectel-cm-5g-m
         rm -rf modem_feeds
-        git clone --depth=1 https://github.com/koshev-msk/modemfeed.git modemfeed
-        cp -r modemfeed/luci/applications/luci-app-ttl package/luci-app-ttl
-        rm -rf modemfeed
+        git clone --depth=1 https://github.com/solomonricky/luci-app-modeminfo.git luci-app-modeminfo
+        
 
     - name: Update & Install feeds
       working-directory: ./openwrt
