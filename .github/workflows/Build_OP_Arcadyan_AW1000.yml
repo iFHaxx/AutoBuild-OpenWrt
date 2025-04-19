@@ -77,6 +77,9 @@ jobs:
         git clone --depth=1 https://github.com/FUjr/modem_feeds.git modem_feeds
         cp -r modem_feeds/application/quectel_CM_5G_M quectel-cm-5g-m
         rm -rf modem_feeds
+        git clone --depth=1 https://github.com/koshev-msk/modemfeed.git modemfeed
+        cp -r modemfeed/luci/applications/luci-app-ttl package/luci-app-ttl
+        rm -rf modemfeed
 
     - name: Update & Install feeds
       working-directory: ./openwrt
@@ -84,11 +87,7 @@ jobs:
         ./scripts/feeds update -a
         ./scripts/feeds install -a
         ./scripts/feeds install -a -f -p modem
-        ./scripts/feeds install -a -f -p quectel-cm-5g
-        ./scripts/feeds install -a -p luci-app-3ginfo-lite
-        ./scripts/feeds install luci-base
-        ./scripts/feeds update luci
-        ./scripts/feeds install csstidy luasrcdiet
+        ./scripts/feeds install luci-app-ttl 
 
 
     - name: Configuration Customization - Build_Arcadyan_AW1000
