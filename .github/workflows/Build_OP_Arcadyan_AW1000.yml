@@ -74,6 +74,7 @@ jobs:
     - name: Add Custom package
       working-directory: ./openwrt/package
       run: |
+        git clone --depth=1 https://github.com/intannajwa/joss.git joss
         git clone --depth=1 https://github.com/FUjr/modem_feeds.git modem_feeds
         git clone --depth=1 https://github.com/intannajwa/quectel_CM_5G_M.git quectel_CM_5G_M
         git clone --depth=1 https://github.com/solomonricky/luci-app-modeminfo.git luci-app-modeminfo
@@ -96,6 +97,8 @@ jobs:
         ./scripts/feeds install -a -f -p irqbalance
         ./scripts/feeds install luci-app-irqbalance
         ./scripts/feeds install quectel_CM_5G_M
+        ./scripts/feeds install luci-app-telegrambot
+        ./scripts/feeds install luci-app-ttl
 
 
     - name: Configuration Customization - Build_Arcadyan_AW1000
